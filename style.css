@@ -67,3 +67,8 @@ body{
     float: right;
     justify-content: space-between;
 }
+.emptyMessage{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+}

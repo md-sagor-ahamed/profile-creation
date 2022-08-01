@@ -4,10 +4,8 @@ const profession = document.querySelector("#profession");
 const gmail = document.querySelector("#gmail");
 const profileBody = document.querySelector(".profileBody");
 const submitBtn = document.querySelector(".submit");
+const emptyMessage = document.querySelector(".emptyMessage");
 
-// window.addEventListener("DOMContentLoaded", ()=>{
-
-// })
 
 submitBtn.addEventListener("click", (e)=>{
     e.preventDefault();
@@ -25,6 +23,10 @@ function getValueFromInput(){
                 gmail: gmail.value,
                 date: getCreatedTime()
             }
+            name.value = ""
+            age.value = ""
+            profession.value = ""
+            gmail.value = ""
         showingValueToUi(profile)
         saveDataTolocalStorage(profile)
     }
@@ -40,6 +42,7 @@ function showingValueToUi(profile){
         </div>
     `
     profileBody.innerHTML += createdElements;
+
 }
 
 function saveDataTolocalStorage(profile){
@@ -53,7 +56,7 @@ function saveDataTolocalStorage(profile){
     localStorage.setItem("items", JSON.stringify(data))
     
 }
-// console.log(localStorage.getItem("items"))
+
 function getDataFromStorage(){
     let data;
     if(localStorage.getItem("items")){
@@ -61,9 +64,18 @@ function getDataFromStorage(){
     }else{
         data = []
     }
-    let formatedData = '';
+
     for(let i = 0; i < data.length; i++){
         showingValueToUi(data[i])
+    }
+    if(data.length === 0){
+        let message = document.createElement("h2")
+        message.className = "message"
+        message.textContent = "Your list is empty!"
+        emptyMessage.appendChild(message)
+        console.log(message)
+    }else{
+        emptyMessage.innerHTML = ""
     }
 }
 getDataFromStorage()
